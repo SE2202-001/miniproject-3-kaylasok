@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Software Engineer",
+        "posted": "2 days ago",
+        "type": "Full-time",
+        "level": "Mid",
+        "skill": "JavaScript",
+        "detail": "Develop web applications."
+    },
+    {
+        "title": "Data Analyst",
+        "posted": "1 day ago",
+        "type": "Part-time",
+        "level": "Entry",
+        "skill": "Python",
+        "detail": "Analyze data trends."
+    }
+]
