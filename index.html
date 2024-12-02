@@ -10,7 +10,6 @@
   <header>
     <h1>Upwork Jobs Analysis</h1>
   </header>
-
   <main>
     <section class="controls">
       <input type="file" id="fileInput" accept=".json" />
@@ -31,15 +30,15 @@
           <option value="Complex project">Complex project</option>
         </select>
       </div>
+      <div class="sort-buttons">
+        <button id="sortTitle">Sort by Title</button>
+        <button id="sortPosted">Sort by Posted Time</button>
+      </div>
     </section>
-
-    <section id="jobList" class="job-list"></section>
+    <section id="jobList">
+      <ul id="jobs"></ul>
+    </section>
   </main>
-
-  <footer>
-    <p>&copy; 2024 Upwork Jobs Analysis</p>
-  </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

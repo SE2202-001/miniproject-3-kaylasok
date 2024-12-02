@@ -1,13 +1,13 @@
-const fileInput = document.getElementById("fileInput");
-const jobList = document.getElementById("jobList");
-const levelFilter = document.getElementById("levelFilter");
-const typeFilter = document.getElementById("typeFilter");
+let jobs = []; // To store the parsed jobs from JSON
 
-let jobs = [];
+// Event listeners for file input and filters
+document.getElementById("fileInput").addEventListener("change", handleFileUpload);
+document.getElementById("levelFilter").addEventListener("change", filterJobs);
+document.getElementById("typeFilter").addEventListener("change", filterJobs);
 
-fileInput.addEventListener("change", handleFileUpload);
-levelFilter.addEventListener("change", applyFilters);
-typeFilter.addEventListener("change", applyFilters);
+// Event listeners for sort buttons
+document.getElementById("sortTitle").addEventListener("click", () => sortJobs("title"));
+document.getElementById("sortPosted").addEventListener("click", () => sortJobs("posted"));
 
 function handleFileUpload(event) {
   const file = event.target.files[0];
@@ -21,35 +21,58 @@ function handleFileUpload(event) {
   }
 }
 
+// Display jobs in the job list
 function displayJobs(jobsToDisplay) {
-  jobList.innerHTML = ""; // Clear existing jobs
+  const jobList = document.getElementById("jobs");
+  jobList.innerHTML = ""; // Clear the list
+
   jobsToDisplay.forEach((job) => {
-    const jobDiv = document.createElement("div");
-    jobDiv.className = "job";
-    jobDiv.innerHTML = `
-      <h2>${job.Title}</h2>
-      <p><strong>Posted:</strong> ${job.Posted}</p>
-      <p><strong>Type:</strong> ${job.Type}</p>
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `
+      <h3>${job.Title}</h3>
       <p><strong>Level:</strong> ${job.Level}</p>
-      <p><strong>Estimated Time:</strong> ${job["Estimated Time"] || "N/A"}</p>
-      <p><strong>Skill:</strong> ${job.Skill || "N/A"}</p>
-      <p><strong>Detail:</strong> ${job.Detail.substring(0, 100)}...</p>
+      <p><strong>Type:</strong> ${job.Type}</p>
+      <p><strong>Skill:</strong> ${job.Skill}</p>
+      <p><strong>Posted:</strong> ${job.Posted}</p>
+      <p><strong>Detail:</strong> ${job.Detail}</p>
       <a href="${job["Job Page Link"]}" target="_blank">View Job</a>
     `;
-    jobList.appendChild(jobDiv);
+    jobList.appendChild(listItem);
   });
 }
 
-function applyFilters() {
-  const level = levelFilter.value;
-  const type = typeFilter.value;
+// Filter jobs based on selected filters
+function filterJobs() {
+  const level = document.getElementById("levelFilter").value;
+  const type = document.getElementById("typeFilter").value;
 
   const filteredJobs = jobs.filter((job) => {
-    return (
-      (level === "All" || job.Level === level) &&
-      (type === "All" || job.Type === type)
-    );
+    const matchesLevel = level === "All" || job.Level === level;
+    const matchesType = type === "All" || job.Type === type;
+    return matchesLevel && matchesType;
   });
 
   displayJobs(filteredJobs);
+}
+
+// Sort jobs by criteria
+function sortJobs(criteria) {
+  let sortedJobs = [...jobs]; // Create a copy of the jobs array
+
+  if (criteria === "title") {
+    sortedJobs.sort((a, b) => a.Title.localeCompare(b.Title)); // Alphabetical sort by title
+  } else if (criteria === "posted") {
+    sortedJobs.sort((a, b) => {
+      // Sort by posted time
+      return extractMinutesAgo(a.Posted) - extractMinutesAgo(b.Posted);
+    });
+  }
+
+  displayJobs(sortedJobs); // Update display
+}
+
+// Utility function to extract "minutes ago" as a number
+function extractMinutesAgo(posted) {
+  const match = posted.match(/(\d+)\s+minute/); // Match "X minutes ago"
+  return match ? parseInt(match[1], 10) : Infinity; // Default to Infinity if no match
 }
