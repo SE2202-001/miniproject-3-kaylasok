@@ -3,49 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Job Listings</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Job Listings</title>
+  <style>
+    /* Add your CSS here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .controls {
+      margin-bottom: 20px;
+    }
+    .controls label {
+      margin-right: 10px;
+    }
+    .controls select,
+    .controls input {
+      margin-right: 20px;
+    }
+    .job-listing {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #fff;
+      border-radius: 5px;
+    }
+    .job-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .job-detail {
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Interactive Job Listings</h1>
-  </header>
-  <main>
-    <section class="controls">
-      <input type="file" id="fileInput" accept=".json" />
-      <div id="filters">
-        <label for="levelFilter">Filter by Level:</label>
-        <select id="levelFilter">
-          <option value="All">All</option>
-          <option value="Entry level">Entry level</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Expert">Expert</option>
-        </select>
+  <section class="controls">
+    <input type="file" id="fileInput" accept=".json" />
+    <div id="filters">
+      <label for="levelFilter">Filter by Level:</label>
+      <select id="levelFilter">
+        <option value="All">All</option>
+        <option value="Entry level">Entry level</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Expert">Expert</option>
+      </select>
 
-        <label for="typeFilter">Filter by Type:</label>
-        <select id="typeFilter">
-          <option value="All">All</option>
-          <option value="Ongoing project">Ongoing project</option>
-          <option value="One-time project">One-time project</option>
-        </select>
-      </div>
-      <div class="sort-buttons">
-        <button id="sortTitle">Sort by Title</button>
-        <button id="sortPosted">Sort by Posted Time</button>
-      </div>
-    </section>
-    <section id="jobList">
-      <ul id="jobs"></ul>
-    </section>
+      <label for="typeFilter">Filter by Type:</label>
+      <select id="typeFilter">
+        <option value="All">All</option>
+        <option value="Ongoing project">Ongoing project</option>
+        <option value="One-time project">One-time project</option>
+      </select>
 
-    <!-- Modal Structure -->
-    <div id="jobModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div id="jobDetails"></div>
-      </div>
-    </div>  
-  </main>
+      <label for="skillFilter">Filter by Skill:</label>
+      <select id="skillFilter">
+        <option value="All">All</option>
+      </select>
+    </div>
+    <div class="sort-buttons">
+      <button id="sortTitle">Sort by Title</button>
+      <button id="sortPosted">Sort by Posted Time</button>
+    </div>
+  </section>
+  <section id="jobListings"></section>
   <script src="script.js"></script>
 </body>
 </html>
