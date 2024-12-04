@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upwork Jobs Analysis</title>
+  <title>Interactive Job Listings</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>Upwork Jobs Analysis</h1>
+    <h1>Interactive Job Listings</h1>
   </header>
   <main>
     <section class="controls">
       <input type="file" id="fileInput" accept=".json" />
       <div id="filters">
-        <label for="levelFilter">Level:</label>
+        <label for="levelFilter">Filter by Level:</label>
         <select id="levelFilter">
           <option value="All">All</option>
           <option value="Entry level">Entry level</option>
@@ -22,12 +22,11 @@
           <option value="Expert">Expert</option>
         </select>
 
-        <label for="typeFilter">Type:</label>
+        <label for="typeFilter">Filter by Type:</label>
         <select id="typeFilter">
           <option value="All">All</option>
           <option value="Ongoing project">Ongoing project</option>
           <option value="One-time project">One-time project</option>
-          <option value="Complex project">Complex project</option>
         </select>
       </div>
       <div class="sort-buttons">
@@ -38,6 +37,14 @@
     <section id="jobList">
       <ul id="jobs"></ul>
     </section>
+
+    <!-- Modal Structure -->
+    <div id="jobModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="jobDetails"></div>
+      </div>
+    </div>  
   </main>
   <script src="script.js"></script>
 </body>
